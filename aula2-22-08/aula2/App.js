@@ -6,14 +6,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics'; 
 import ButtonAtt from './src/components/Button';
 import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function App() {
 
   const [nome, setNome] = useState('leborn jomes');
   const [emailEditable, setEmailEditable] = useState(false);
+  const [qtdCarNome, setQtdCarNome] = useState(12);
 
   function closeKb() {
     Keyboard.dismiss();
+  }
+
+  function handleNomeChange(text) {
+    setNome(text);
+    setQtdCarNome(text.length);
   }
 
   function handleSave() {
@@ -29,7 +36,7 @@ export default function App() {
   function handleEmailPress() {
     Haptics.selectionAsync();
     setEmailEditable(!emailEditable);
-    
+    // styles.inputDis.backgroundColor = emailEditable ? '#f1eaea' : '#ffffff';
   }
 
   return (
@@ -48,7 +55,11 @@ export default function App() {
                   style={styles.imagem}
                   resizeMode="contain"
                 />
-                <Text style={styles.txtAltfoto}>leborn jomes</Text>
+                {/* <Text style={styles.txtAltfoto}>leborn jomes</Text> */}
+                <View style={styles.altFotoRow}>
+                  <Ionicons name="camera-outline" size={16} color="#00B37E" />
+                  <Text style={styles.txtAltfoto}>alterar foto do leborn</Text>
+                </View>
               </TouchableOpacity>
 
               <View style={styles.inputContainer}>
@@ -57,15 +68,17 @@ export default function App() {
                   style={styles.input}
                   value={nome}
                   placeholderTextColor="#7c7c8a"
+                  onChangeText={handleNomeChange}
                 />
-                <Button onPress={clearDefault} style={styles.btn} title='Limpar'>
+                <Text style={styles.lblMini}>{qtdCarNome}</Text>
+                <Button onPress={() => {clearDefault(); handleNomeChange('')}} style={styles.btn} title='Limpar'>
                   <Text style={styles.lbl}>Limpar</Text>
                 </Button>
                 <TextInput
                   defaultValue="le@born.jomes"
                   editable={emailEditable}
                   placeholderTextColor="#7c7c8a"
-                  style={[styles.input, styles.inputDis]}
+                  style={[styles.input, styles.inputDis, { backgroundColor: emailEditable ? '#ffffff' : '#f1eaea' }]}
                 />
                 <TouchableOpacity onPress={handleEmailPress}>
                   <Text style={styles.btn}>Alterar email</Text>
@@ -176,8 +189,19 @@ const styles = StyleSheet.create({
     color: '#00B37E',
     // paddingTop: 10,
   },
+  altFotoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
   lbl: {
     fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#000000',
+  },
+  lblMini: {
+    fontSize: 8,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#000000',
