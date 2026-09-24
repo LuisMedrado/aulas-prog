@@ -6,6 +6,8 @@ import {
 import { Slot } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { AppDataProvider } from '../context/AppDataContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,5 +28,11 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Slot />;
+  return (
+    <SafeAreaProvider>
+      <AppDataProvider>
+        <Slot />
+      </AppDataProvider>
+    </SafeAreaProvider>
+  );
 }

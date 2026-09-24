@@ -3,10 +3,11 @@
   "background_emphasis": "#0A1033",
   "background_light": "#1D2766",
   "background_blur": "#000000",
-  "props_border": "#234189",
+  "props_border": "#243189",
   "highlight_props": "#E51C44",
   "highlight_props_border": "#991F36",
   "light_indicator": "#32BD50",
   "text": "#DDE3F0",
-  "text_light": "#ABB1CC"
+  "text_light": "#ABB1CC",
+  "background_image": "#010919"
 }
